@@ -6,7 +6,7 @@ public class pessoa {
     private String sexo;
 
     public pessoa (){
-
+x
     }
     public void setNome(String nome) {
         this.nome = nome;
