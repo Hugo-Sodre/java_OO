@@ -30,6 +30,22 @@ public class Main {
         System.out.println("Account data:");
         System.out.println(Conta.toString());
 
+        System.out.println();
 
+        System.out.println("Enter a deposit value: ");
+        double depositValue = sc.nextDouble();
+        Conta.deposit(depositValue);
+        System.out.println("Update accont data: ");
+        System.out.println(Conta.toString());
+
+
+        System.out.println();
+        System.out.println("Enter a withdraw value: ");
+        double withdrawValue = sc.nextDouble();
+        Conta.withdraw(withdrawValue);
+        System.out.println("Update account data: ");
+        System.out.println(Conta.toString());
+
+        sc.close();
     }
 }

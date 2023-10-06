@@ -35,8 +35,9 @@ public class conta {
     }
 
     public void withdraw (double amount){
-        balance -= amount + 5.0;
+        balance -= amount + 5;
     }
+
 
     public String toString() {
         return "Account " + number + ", Holder: " + holder + ", Balance: $" + String.format("%.2f", balance);
