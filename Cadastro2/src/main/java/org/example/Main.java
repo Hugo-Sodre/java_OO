@@ -3,13 +3,23 @@ import javax.security.auth.login.LoginContext;
 import java.util.Locale;
 import java.util.Scanner;
 
+import static org.example.JavaMailApp.enviarEmail;
+
 
 public class Main {
     public static void main(String[] args) {
 
+        String destinatario = "hugoteste031@gmail.com";
+        String assunto = "Enviando email com JavaMail";
+        String corpo = "Enviei este email utilizando JavaMail com hugosodre031@gmail.com!";
+        String remetente = "hugosodre031@gmail.com";
+        String senha = "123456@";
+
+
+
+
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
-        int escolha;
         int escolhaUser;
         do {
             escolhaUser = menu();
@@ -31,7 +41,7 @@ public class Main {
             }
         } while (escolhaUser != 3);
 
-
+        enviarEmail(destinatario, assunto, corpo, remetente, senha);
     }
     public static int menu() {
         Scanner input = new Scanner(System.in);
@@ -63,6 +73,9 @@ public class Main {
 
         Cadastro cad = new Cadastro(email, password);
     }
+
+
+
 }
 
 

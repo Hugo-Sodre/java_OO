@@ -1,19 +1,13 @@
 package org.example;
-import java.util.Properties;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
-public class JavaMailApp
-{
-    public static void main(String[] args) {
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
+
+public class JavaMailApp {
+
+    public static void enviarEmail(String para, String assunto, String corpo, String remetente, String senha) {
         Properties props = new Properties();
-        /** Parâmetros de conexão com servidor Gmail */
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
@@ -23,35 +17,38 @@ public class JavaMailApp
 
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication()
-                    {
-                        return new PasswordAuthentication("hugoteste031@gmail.com",
-                                "25655213h");
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("hugoteste031@gmail.com", "123456");
                     }
                 });
 
-        /** Ativa Debug para sessão */
         session.setDebug(true);
 
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("hugoteste031@gmail.com"));
-            //Remetente
+            message.setFrom(new InternetAddress(remetente));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(para));
+            message.setSubject(assunto);
+            message.setText(corpo);
 
-            Address[] toUser = InternetAddress //Destinatário(s)
-                    .parse("hugosodre031@gmail.com");
-
-            message.setRecipients(Message.RecipientType.TO, toUser);
-            message.setSubject("Enviando email com JavaMail");//Assunto
-            message.setText("Enviei este email utilizando JavaMail com hugosodre031@gmail.com!");
-            /**Método para enviar a mensagem criada*/
             Transport.send(message);
 
-            System.out.println("Feito!!!");
+            System.out.println("E-mail enviado com sucesso!");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        String destinatario = "hugosodre031@gmail.com";
+        String assunto = "Enviando email com JavaMail";
+        String corpo = "Enviei este email utilizando JavaMail com hugosodre031@gmail.com!";
+        String remetente = "hugoteste031@gmail.com";
+        String senha = "123456";
+
+        enviarEmail(destinatario, assunto, corpo, remetente, senha);
     }
 }
